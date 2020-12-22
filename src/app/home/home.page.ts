@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import PouchDB from 'pouchdb/dist/pouchdb';
+
 
 @Component({
   selector: 'app-home',
@@ -8,7 +10,11 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-  constructor(private router: Router) {}
+  db: any;
+
+  constructor(private router: Router) {
+    this.db = new PouchDB('logbook');
+  }
 
   /*Seitenwechsel
   */

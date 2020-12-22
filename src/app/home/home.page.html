@@ -9,4 +9,18 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-button (click)="gotoReport()" expand="full">LogBuch lesen</ion-button>
+
+  <form [fromGroup]="logForm">
+    <ion-item>
+      <ion-label position="stacked">Bericht</ion-label>
+      <ion-textarea formControlName="day"></ion-textarea>
+    </ion-item>
+    <ion-button (click)="save()" [disabled]="!this.logForm.valid">
+      speichern
+    </ion-button>
+  </form>
+
+
 </ion-content>
+
+
