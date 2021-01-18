@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import PouchDB from 'pouchdb';
+import PouchDB from 'pouchdb/dist/pouchdb';
 
 @Component({
   selector: 'app-berichte',
@@ -13,7 +13,7 @@ export class BerichtePage implements OnInit {
   messages= [];
 
   constructor() {
-    this.db = new PouchDB('diary');
+    this.db = new PouchDB('logbook');
    }
 
   async ngOnInit() {
@@ -23,7 +23,7 @@ export class BerichtePage implements OnInit {
       });
 
       const rows = data.rows.map((row) => {
-        this.messages.push(row.doc.messages);
+        this.messages.push(row.doc.message);
       });
       console.log(data);
     } catch(err) {
