@@ -16,14 +16,41 @@ export class BerichtePage implements OnInit {
     this.db = new PouchDB('logbook');
    }
 
+   async editItem(id, rev, message) {
+     console.log(id);
+     console.log(rev);
+     console.log(message);
+
+    const res = await this.db.put({
+      message: message + " a",
+      _id: id,
+      _rev: rev
+    });
+
+    //Wenn RES ist OK => messages-Array aktualisieren, da ansonsten eine zweite Bearbeitung nicht mehr
+    //funktionieren würde.
+    
+    console.log(res);
+   }
+
+
   async ngOnInit() {
     try{
       const data = await this.db.allDocs({
         include_docs: true
       });
 
-      const rows = data.rows.map((row) => {
-        this.messages.push(row.doc.message);
+      console.log(data);
+
+      this.messages = data.rows.map((row) => {
+        console.log(row);
+        return{
+          id: row.doc._id,
+          rev: row.doc._rev,
+          message: row.doc.message
+        };
+        //this.messages.push(row.doc.message);
+
       });
       console.log(data);
     } catch(err) {
